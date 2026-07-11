@@ -1,0 +1,27 @@
+name: RTL integrity
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Icarus Verilog
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog
+      - name: Compile and elaborate top
+        run: |
+          mkdir -p build
+          iverilog -g2012 -Wall -s top -o build/tiny_nn_accelerator rtl/tiny_nn_accelerator.v
+      - name: Check public module hierarchy
+        run: |
+          for module in cla4 cla8 cla16 mult4ss mult4su mult4uu mad8 se8 sa8_4x4 ctrl top; do
+            grep -Eq "^module[[:space:]]+${module}([[:space:]]|\()" rtl/tiny_nn_accelerator.v
+          done
+      - name: Check publication boundary
+        run: |
+          ! grep -Eq "Unauthorized distribution|Intelligent System Architecture|C:/Users/|C:/KU_Projects|202210895" rtl/tiny_nn_accelerator.v

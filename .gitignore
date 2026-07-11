@@ -1,0 +1,14 @@
+build/
+*.vcd
+*.fst
+*.lxt
+*.out
+*.jou
+*.log
+*.wdb
+.Xil/
+.cache/
+.runs/
+.sim/
+Thumbs.db
+.DS_Store
