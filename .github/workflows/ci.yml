@@ -17,6 +17,10 @@ jobs:
         run: |
           mkdir -p build
           iverilog -g2012 -Wall -s top -o build/tiny_nn_accelerator rtl/tiny_nn_accelerator.v
+      - name: Compile and elaborate self-checking testbench
+        run: |
+          iverilog -g2012 -Wall -s tb_tiny_nn_accelerator -o build/testbench \
+            rtl/tiny_nn_accelerator.v tb/file_memory.v tb/tb_tiny_nn_accelerator.v
       - name: Check public module hierarchy
         run: |
           for module in cla4 cla8 cla16 mult4ss mult4su mult4uu mad8 se8 sa8_4x4 ctrl top; do
@@ -24,4 +28,4 @@ jobs:
           done
       - name: Check publication boundary
         run: |
-          ! grep -Eq "Unauthorized distribution|Intelligent System Architecture|C:/Users/|C:/KU_Projects|202210895" rtl/tiny_nn_accelerator.v
+          ! grep -ERq "Unauthorized distribution|Intelligent System Architecture|C:/Users/|C:/KU_Projects|202210895" rtl tb

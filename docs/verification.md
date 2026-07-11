@@ -14,11 +14,12 @@ The base case matched all 64 outputs in 1,387 cycles. The extra case matched all
 
 ## Public CI
 
-The course-provided memory model, testbench scaffold, and reference vectors are not redistributed. Public CI therefore checks that:
+The authored self-checking testbench is included with relative file paths and a public replacement for the course memory model. The course-provided testbench scaffold, original memory model, and reference vectors are not redistributed. Public CI therefore checks that:
 
 - the RTL compiles with Icarus Verilog in SystemVerilog-2012 mode;
 - `top` elaborates with the complete internal hierarchy;
+- the self-checking testbench and public file-memory model elaborate together;
 - all expected arithmetic, processing-element, array, and controller modules remain present;
 - excluded course markers and absolute local paths do not enter the public source.
 
-The reported functional results refer to the original self-checking simulation, while public CI provides syntax and elaboration regression coverage for the released RTL.
+The reported functional results refer to the original vector-backed simulation. Public CI provides syntax and elaboration regression coverage; running the full comparison requires the excluded vector files in the documented `vectors/` paths.

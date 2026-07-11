@@ -60,14 +60,17 @@ The throughput and bandwidth values are architectural estimates. Latency and out
 .
 |-- docs/architecture.md
 |-- docs/verification.md
-`-- rtl/tiny_nn_accelerator.v
+|-- rtl/tiny_nn_accelerator.v
+`-- tb/
+    |-- file_memory.v
+    `-- tb_tiny_nn_accelerator.v
 ```
 
 ## Public scope
 
-This repository contains only the accelerator RTL authored for the project and a portfolio-oriented technical summary. Course-provided templates, behavioral memory models, test vectors, testbench scaffolding, assignment documents, and the original report are intentionally excluded.
+This repository contains the accelerator RTL and self-checking testbench logic authored for the project, plus a portfolio-oriented technical summary. The testbench was adapted only to use relative vector paths and a small public file-memory model. Course-provided templates, original behavioral memory models, test vectors, assignment documents, and the original report are intentionally excluded.
 
-GitHub Actions compiles the public RTL with Icarus Verilog and checks the expected module hierarchy on every push.
+GitHub Actions compiles and elaborates both the accelerator and testbench with Icarus Verilog and checks the expected module hierarchy on every push. Functional simulation requires the excluded vectors under `vectors/`.
 
 ## License
 
